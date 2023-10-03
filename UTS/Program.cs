@@ -1,15 +1,37 @@
 using Microsoft.EntityFrameworkCore;
+//Referencia para la autentificacion por galletas
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 /*using UTS.Models.DB;*/
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+
+//aqui le movemos para que agarre por coookies
+//Configuracion de la autentificacion
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/LoginUsuario/Login"; //Ruta donde iniciara la aplicacion
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(1);//tiempo para que expire la sesion
+    });
+
 
 /*builder.Services.AddDbContext<AulasUtsContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AulasUTSContext"));
 }); */
+// Add services to the container.
+//Borrar caché para sesión
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(
+        new ResponseCacheAttribute
+        {
+            NoStore = true,
+            Location = ResponseCacheLocation.None,
+        });
+});
 
 var app = builder.Build();
 
@@ -25,11 +47,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+//Agregar el middleware UseAuthentication
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Edificio}/{action=Listar}/{id?}");
+    pattern: "{controller=LoginUsuario}/{action=Login}/{id?}");
 
 app.Run();

@@ -1,0 +1,57 @@
+﻿@model UsuarioModel;
+@{
+    ViewData["Title"] = "Registro";
+    Layout = null;
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-action="Login">UTS</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        </div>
+    </div>
+</nav>
+<div class="modal-body p-5 pt-0">
+    <form class="" asp-action="Registro" asp-controller="LoginUsuario" method="post">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control rounded-3" asp-for="nombre" id="floatingInput" placeholder="name@example.com" />
+            <span asp-validation-for="nombre" class="text-danger"></span>
+            <label for="floatingInput">Nombre</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control rounded-3" asp-for="apellidos" id="floatingInput" placeholder="name@example.com" />
+            <span asp-validation-for="apellidos" class="text-danger"></span>
+            <label for="floatingInput">Apellidos</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control rounded-3" asp-for="contraseña" id="floatingPassword" placeholder="Password" />
+            <span asp-validation-for="contraseña" class="text-danger"></span>
+            <label for="floatingPassword">Contraseña</label>
+        </div>
+        @*<div class="form-floating mb-3">
+            <input type="email" class="form-control rounded-3" asp-for="correo" id="floatingInput" placeholder="name@example.com" />
+            <span asp-validation-for="correo" class="text-danger"></span>
+            <label for="floatingInput">Correo</label>
+        </div>*@
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control rounded-3" asp-for="telefono" id="floatingInput" placeholder="name@example.com" />
+            <span asp-validation-for="telefono" class="text-danger"></span>
+            <label for="floatingInput">Telefono</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control rounded-3" asp-for="clave_empleado" id="floatingInput" placeholder="Clave de empleado" />
+            <span asp-validation-for="clave_empleado" class="text-danger"></span>
+            <label for="floatingInput">Clave de Empleado</label>
+        </div>
+        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-success" type="submit">Registrarme awa </button>
+        @if (ViewData["Mensaje"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewData["Mensaje"]
+            </div>
+        }
+        <span><a asp-action="Login">¿Ya tienes una cuenta creada?</a></span>
+        <a asp-action="Login" asp-controller="LoginUsuario"></a>
+    </form>
+</div>

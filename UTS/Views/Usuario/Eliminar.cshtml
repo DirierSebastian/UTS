@@ -1,4 +1,4 @@
-﻿@model HorarioModel;
+﻿@model UsuarioModel;
 @{
     ViewData["Title"] = "Eliminar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,15 +8,15 @@
         Eliminar contacto
     </div>
     <div class="card-body justify-content-center">
-        <form asp-action="Eliminar" asp-controller="Horarios" method="post">
-            <input asp-for="idhorario" type="hidden" class="form-control" />
+        <form asp-action="Eliminar" asp-controller="Usuario" method="post">
+            <input asp-for="clave_empleado" type="hidden" class="form-control" />
             <div class="alert alert-danger" role="alert">
-                ¿Deseas eliminar el apartado: @Html.DisplayTextFor(m=>m.idhorario)?
+                ¿Deseas eliminar usuario: @Html.DisplayTextFor(m=>m.nombre)?
             </div>
 
             <div class="col-md-4 mb-3">
                 <button type="submit" class="btn btn-danger mb-3 btn-sm">Eliminar</button> <br />
-                <a asp-action="Listar" asp-controller="Horarios" class="btn btn-warning btn-sm">Volver a la lista</a>
+                <a asp-action="Listar" asp-controller="Usuario" class="btn btn-warning btn-sm">Volver a la lista</a>
             </div>
         </form>
     </div>

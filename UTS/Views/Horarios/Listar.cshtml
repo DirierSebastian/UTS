@@ -1,4 +1,4 @@
-﻿@model List<horario_agendaModel>;
+﻿@model List<HorarioModel>;
 @{
     ViewData["Title"] = "Listar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,11 +14,11 @@
     <table class="table table-striped bg-white">
         <thead>
             <tr>
-                <th>Identificador del aula</th>
-                <th>Dia</th>
-                <th>Mes</th>
-                <th>Año</th>
-                <th>Hora</th>
+                <th>Aula</th>
+                <th>Clave de empleado</th>
+                <th>Fecha</th>
+                <th>Hora inicio</th>
+                <th>Hora fin</th>
                 <th></th>
             </tr>
         </thead>
@@ -26,11 +26,12 @@
             @foreach (var item in Model)
             {
               <tr>
-                <td>@item.idaula2</td>
-                <td>@item.hora</td>
-                <td>@item.dia</td>
-                <td>@item.mes</td>
-                <td>@item.years</td> 
+                <td>@item.refInstalacion.idaula</td>
+                <td>@item.clave_empleado2</td>
+                <td>@item.Fecha</td>
+                <td>@item.HoraInicio</td>
+                <td>@item.HoraFin</td>
+
                 <td>
                     <a asp-action="Editar" asp-controller="Horarios" asp-route-idhorario="@item.idhorario" class="btn btn-warning btn-sm">Editar</a>
                     <a asp-action="Eliminar" asp-controller="Horarios" asp-route-idhorario="@item.idhorario" class="btn btn-danger btn-sm">Eliminar</a>

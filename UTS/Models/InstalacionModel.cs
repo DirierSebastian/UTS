@@ -8,10 +8,10 @@ namespace UTS.Models
 
         public int capacidad { get; set; }
 
-        public string? nombre { get; set; }
+        public string nombre { get; set; }
         [Required(ErrorMessage = "El campo es obligatorio wachin")]
 
-        public int numedificio1 { get; set; }
+        public EdificioModel refEdificio { get; set; }
 
     }
 }

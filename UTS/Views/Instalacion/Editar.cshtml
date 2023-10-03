@@ -20,8 +20,11 @@
                 <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
             <div>
-                <label for="aula">Numero del edificio</label>
-                <input type="text" asp-for="numedificio1" class="form-control" />
+                <select class="form-control" asp-for="refEdificio.numedificio"
+                asp-items="@(ViewBag.Lista!=null?new SelectList(ViewBag.Lista, "Value", "Text"):
+                new List<SelectListItem>())">
+                    <option value="">Selecciona edificio</option>
+                </select><br />
             </div>
             <div class="col-md-4 mb-3">
                 <button type="submit" class="btn btn-primary mb-3 btn-sm">Guardar</button> <br />

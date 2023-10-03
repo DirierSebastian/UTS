@@ -1,8 +1,11 @@
-﻿@{
+﻿@model List<ConsultaHorariosModel>;
+@{
+    ViewData["Title"] = "Listar";
     Layout = null;
 }
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+
 <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" asp-action="indexinicio">UTS</a>
@@ -31,17 +34,42 @@
         </div>
     </div>
 </nav>
-<div class="container my-3">
-    <div class="row">
-        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 py-4 bg-white">
-            <h2>Inicio</h2>
-            <br>
-            <h6>¡Bienvenido a nuestro proyecto de apartado de aulas! Estamos emocionados de presentarte esta plataforma en desarrollo que tiene como objetivo facilitar la reserva de aulas para todos los profesores e incluso estudiantes.</h6>
-            <br>
-            <h6>En esta página, podrás encontrar una manera sencilla y conveniente de reservar aulas para tus clases y actividades académicas. Estamos trabajando arduamente para hacer que la experiencia de reservar aulas sea más rápida, eficiente y accesible para todos.</h6>
-
-        </div>
+<div class="card col-8">
+    <div class="card-header">
+        Lista
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<script type="text/javascript" src="~/js/site.js"></script>
+<div class="card-body">
+    <table class="table table-striped bg-white">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ClaveDeEmpleado</th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>InicioDelApartado</th>
+                <th>FinDelApartado</th>
+                <th>NumeroEdificio</th>
+                <th>NombreAula</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem=>item.ID)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.ClaveDeEmpleado)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.Fecha)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.InicioDelApartado)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.FinDelApartado)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.NumeroEdificio)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.NombreAula)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

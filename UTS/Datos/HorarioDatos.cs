@@ -9,9 +9,9 @@ namespace UTS.Datos
 {
     public class HorarioDatos
     {
-        public List<horario_agendaModel> Listar()
+        public List<HorarioModel> Listar()
         {
-            var oLista = new List<horario_agendaModel>();
+            var oLista = new List<HorarioModel>();
 
             var cn = new Conexion();
 
@@ -26,15 +26,17 @@ namespace UTS.Datos
                 {
                     while (dr.Read())
                     {
-                        oLista.Add(new horario_agendaModel()
+                        oLista.Add(new HorarioModel()
                         {
                             idhorario = Convert.ToInt32(dr["idhorario"]),
-                            idaula2 = Convert.ToInt32(dr["idaula2"]),
-                            dia = dr["dia"].ToString(),
-                            mes = dr["mes"].ToString(),
-                            years = dr["years"].ToString(),
-                            hora = dr["hora"].ToString()
-
+                            refInstalacion = new InstalacionModel
+                            {
+                                idaula = Convert.ToInt32(dr["idaula2"]),
+                            },
+                            clave_empleado2 = Convert.ToInt32(dr["clave_empleado2"]),
+                            Fecha = (DateTime)dr["Fecha"],
+                            HoraInicio = (TimeSpan)dr["HoraInicio"],
+                            HoraFin = (TimeSpan)dr["HoraFin"]
                         });
                     }
                 }
@@ -42,15 +44,15 @@ namespace UTS.Datos
             return oLista;
 
         }
-        public horario_agendaModel ConsultarHorario(int idhorario)
+        public HorarioModel ConsultarHorario(int idhorario)
         {
-            var oHorario = new horario_agendaModel();
+            var oHorario = new HorarioModel();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getAulasUTSContext()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("sp_ConsultarHorario", conexion);
+                SqlCommand cmd = new SqlCommand("horario_agenda_consultar", conexion);
                 cmd.Parameters.AddWithValue("idhorario", idhorario);
                 cmd.CommandType = CommandType.StoredProcedure;
                 using (var dr = cmd.ExecuteReader())
@@ -58,18 +60,21 @@ namespace UTS.Datos
                     while (dr.Read())
                     {
                         oHorario.idhorario = Convert.ToInt32(dr["idhorario"]);
-                        oHorario.idaula2 = Convert.ToInt32(dr["idaula2"]);
-                        oHorario.dia = dr["dia"].ToString();
-                        oHorario.mes = dr["mes"].ToString();
-                        oHorario.years = dr["years"].ToString();
-                        oHorario.hora = dr["hora"].ToString();
+                        oHorario.refInstalacion = new InstalacionModel
+                        {
+                            idaula = Convert.ToInt32(dr["idaula2"]),
+                        };
+                        oHorario.clave_empleado2 = Convert.ToInt32(dr["clave_empleado2"]);
+                        oHorario.Fecha = (DateTime)dr["Fecha"];
+                        oHorario.HoraInicio = (TimeSpan)dr["HoraInicio"];
+                        oHorario.HoraFin = (TimeSpan)dr["HoraFin"];
                     }
                 }
             }
             return oHorario;
         }
 
-        public bool InsertarApartado(horario_agendaModel model)
+        public bool InsertarApartado(HorarioModel model)
         {
             bool respuesta;
             try
@@ -79,11 +84,11 @@ namespace UTS.Datos
                 {
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("Sp_InsertarHorario", conexion);
-                    cmd.Parameters.AddWithValue("idaula2", model.idaula2);
-                    cmd.Parameters.AddWithValue("dia", model.dia);
-                    cmd.Parameters.AddWithValue("mes", model.mes);
-                    cmd.Parameters.AddWithValue("years", model.years);
-                    cmd.Parameters.AddWithValue("hora", model.hora);
+                    cmd.Parameters.AddWithValue("idaula2", model.refInstalacion.idaula);
+                    cmd.Parameters.AddWithValue("clave_empleado2", model.clave_empleado2);
+                    cmd.Parameters.AddWithValue("Fecha", model.Fecha);
+                    cmd.Parameters.AddWithValue("HoraInicio", model.HoraInicio);
+                    cmd.Parameters.AddWithValue("HoraFin", model.HoraFin);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -98,7 +103,7 @@ namespace UTS.Datos
 
         }
 
-        public bool EditarApartado(horario_agendaModel model)
+        public bool EditarApartado(HorarioModel model)
         {
             bool respuesta;
             try
@@ -109,11 +114,11 @@ namespace UTS.Datos
                     conexion.Open();
                     SqlCommand cmd = new SqlCommand("Sp_EditarHorario", conexion);
                     cmd.Parameters.AddWithValue("idhorario", model.idhorario);
-                    cmd.Parameters.AddWithValue("idaula2", model.idaula2);
-                    cmd.Parameters.AddWithValue("dia", model.dia);
-                    cmd.Parameters.AddWithValue("mes", model.mes);
-                    cmd.Parameters.AddWithValue("years", model.years);
-                    cmd.Parameters.AddWithValue("hora", model.hora);
+                    cmd.Parameters.AddWithValue("idaula2", model.refInstalacion.idaula);
+                    cmd.Parameters.AddWithValue("clave_empleado2", model.clave_empleado2);
+                    cmd.Parameters.AddWithValue("Fecha", model.Fecha);
+                    cmd.Parameters.AddWithValue("HoraInicio", model.HoraInicio);
+                    cmd.Parameters.AddWithValue("HoraFin", model.HoraFin);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -138,7 +143,7 @@ namespace UTS.Datos
                 using (var conexion = new SqlConnection(cn.getAulasUTSContext()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("Sp_EliminarHorario", conexion);
+                    SqlCommand cmd = new SqlCommand("dbo.horario_agenda_eliminar", conexion);
                     cmd.Parameters.AddWithValue("idhorario", idhorario);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();

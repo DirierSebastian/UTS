@@ -35,7 +35,10 @@ namespace UTS.Datos
                             idaula = Convert.ToInt32(dr["idaula"]),
                             capacidad = Convert.ToInt32(dr["capacidad"]),
                             nombre = dr["nombre"].ToString(),
-                            numedificio1 = Convert.ToInt32(dr["numedificio1"])
+                            refEdificio = new EdificioModel()
+                            {
+                                numedificio = Convert.ToInt32(dr["numedificio1"])
+                            }
                         });
                     }
                 }
@@ -61,7 +64,10 @@ namespace UTS.Datos
                         oInstalacion.idaula = Convert.ToInt32(dr["idaula"]);
                         oInstalacion.capacidad = Convert.ToInt32(dr["capacidad"]);
                         oInstalacion.nombre = dr["nombre"].ToString();
-                        oInstalacion.numedificio1 = Convert.ToInt32(dr["numedificio1"]);
+                        oInstalacion.refEdificio = new EdificioModel()
+                        {
+                            numedificio = Convert.ToInt32(dr["numedificio1"])
+                        };
 
                     }
                 }
@@ -85,7 +91,7 @@ namespace UTS.Datos
                     //enviado un parametro al procedimiento almacenado
                     cmd.Parameters.AddWithValue("capacidad", model.capacidad);
                     cmd.Parameters.AddWithValue("nombre", model.nombre);
-                    cmd.Parameters.AddWithValue("numedificio1", model.numedificio1);
+                    cmd.Parameters.AddWithValue("numedificio1", model.refEdificio.numedificio);
                     cmd.CommandType = CommandType.StoredProcedure;
                     //ejecutar el procedimiento almacennado
                     cmd.ExecuteNonQuery();
@@ -117,7 +123,7 @@ namespace UTS.Datos
                     cmd.Parameters.AddWithValue("idaula", model.idaula);
                     cmd.Parameters.AddWithValue("capacidad", model.capacidad);
                     cmd.Parameters.AddWithValue("nombre", model.nombre);
-                    cmd.Parameters.AddWithValue("numedificio1", model.numedificio1);
+                    cmd.Parameters.AddWithValue("numedificio1", model.refEdificio.numedificio);
                     cmd.CommandType = CommandType.StoredProcedure;
                     //ejecutar el procedimiento almacennado
                     cmd.ExecuteNonQuery();

@@ -28,7 +28,7 @@
                         <td>@Html.DisplayFor(modelItem=>item.idaula)</td>
                         <td>@Html.DisplayFor(modelItem=>item.capacidad)</td>
                         <td>@Html.DisplayFor(modelItem=>item.nombre)</td>
-                        <td>@Html.DisplayFor(modelItem=>item.numedificio1)</td>
+                        <td>@Html.DisplayFor(modelItem=>item.refEdificio.numedificio)</td>
                         <td>
                             <a asp-action="Editar" asp-controller="Instalacion" asp-route-idaula="@item.idaula" class="btn btn-warning btn-sm"> Editar</a>
                             <a asp-action="Eliminar" asp-controller="Instalacion" asp-route-idaula="@item.idaula" class="btn btn-danger btn-sm"> Eliminar</a>

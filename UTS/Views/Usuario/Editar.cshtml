@@ -1,0 +1,42 @@
+﻿@model UsuarioModel;
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+<div class="card col-8">
+    <div class="card-header">
+        Editar
+    </div>
+
+    <form asp-action="Editar" asp-asp-controller="Usuario" method="post">
+        <div class="card-body justify-content-center">
+
+            <div class="col-md-4 mb-3">
+                <label>Clave de empleado</label><br />
+                <input type="text" asp-for="clave_empleado" class="from-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Nombre</label><br />
+                <input type="text" asp-for="nombre" class="from-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>apellidos</label><br />
+                <input type="text" asp-for="apellidos" class="from-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Contraseña</label><br />
+                <input type="password" asp-for="contraseña" class="from-control" />
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Tipo</label><br />
+                <input type="text" asp-for="telefono" class="from-control" />
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <button type="submit" class="btn btn-primary mb-3 btn-sm">Editar</button><br />
+                <a asp-action="Listar" asp-controller="Usuario" class="btn btn-warning btn-sm">Volver a la lista</a>
+            </div>
+        </div>
+    </form>
+</div>

@@ -15,19 +15,21 @@
 
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-action="index">UTS</a>
+                <a class="navbar-brand" asp-action="Indexinicio" asp-controller="Home">UTS</a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 </div>
-                <a class="navbar-brand" asp-action="">Edificios</a>
+                <a class="navbar-brand" asp-action="Listar" asp-controller="Edificio">Edificios</a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 </div>
-                <a class="navbar-brand" asp-action="">Horarios</a>
+                <a class="navbar-brand" asp-action="Listar" asp-controller="Horarios">Horarios</a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 </div>
-                <a class="navbar-brand" asp-action="">Instalaciones</a>
+                <a class="navbar-brand" asp-action="Listar" asp-controller="Instalacion">Instalaciones</a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 </div>
-
+                <a class="navbar-brand" asp-action="CerrarSesion" asp-controller="Home">Cerrar Sesion</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                </div>
             </div>
         </nav>
     </header>

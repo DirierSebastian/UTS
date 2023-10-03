@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using UTS.Datos;
 using UTS.Models;
 
@@ -7,6 +9,8 @@ namespace UTS.Controllers
     public class HorariosController : Controller
     {
         HorarioDatos _horarioDatos = new HorarioDatos();
+        InstalacionDatos _instalacionDatos = new InstalacionDatos();
+        UsuarioDatos _usuarioDatos = new UsuarioDatos();
         public IActionResult Listar()
         {
             var lista = _horarioDatos.Listar();
@@ -14,15 +18,24 @@ namespace UTS.Controllers
         }
 
         [HttpGet]
-        public IActionResult Insertar() 
-        { 
+        public IActionResult Insertar()
+        {
+            List <InstalacionModel> lista = _instalacionDatos.Lista();
+            List<SelectListItem> listaI = lista.ConvertAll(
+                item => new SelectListItem()
+                {
+                    Text = item.nombre.ToString(),
+                    Value = item.idaula.ToString(),
+                    Selected = false
+                });
+            ViewBag.Lista = listaI;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Insertar(horario_agendaModel model)
+        public IActionResult Insertar(HorarioModel model)
         {
-            if(!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 return RedirectToAction("Listar");
             }
@@ -43,7 +56,7 @@ namespace UTS.Controllers
             return View(_horario);
         }
         [HttpPost]
-        public IActionResult Eliminar(horario_agendaModel model)
+        public IActionResult Eliminar(HorarioModel model)
         {
             var respuesta = _horarioDatos.EliminarHorario(model.idhorario);
             if(respuesta)
@@ -57,15 +70,24 @@ namespace UTS.Controllers
         }
 
         public IActionResult Editar(int idhorario)
-        {
-            horario_agendaModel _contacto = _horarioDatos.ConsultarHorario(idhorario);
+        {            List<InstalacionModel> lista = _instalacionDatos.Lista();
+            List<SelectListItem> listaI = lista.ConvertAll(     
+                item => new SelectListItem()
+                {
+                    Text = item.nombre.ToString(),
+                    Value = item.idaula.ToString(),
+                    Selected = false
+                });
+            ViewBag.Lista = listaI;
+
+            HorarioModel _contacto = _horarioDatos.ConsultarHorario(idhorario);
             return View(_contacto);
         }
         [HttpPost]
         
-        public IActionResult Editar(horario_agendaModel model)
+        public IActionResult Editar(HorarioModel model)
         {
-            if(!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 return View();
             }
@@ -79,6 +101,9 @@ namespace UTS.Controllers
                 return View();
             }
         }
+
+
+
     }
 
 

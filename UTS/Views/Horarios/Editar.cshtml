@@ -1,4 +1,4 @@
-﻿@model horario_agendaModel;
+﻿@model HorarioModel;
 @{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,27 +13,27 @@
         <form asp-action="Editar" asp-asp-controller="Horarios" method="post">
             <input asp-for="idhorario" type="hidden" class="from-control"/>
             <div class="col-md-4 mb-3">
-                <label for="staticEmail2">Identificador de aula</label>
-                <input asp-for="idaula2" type="text" class="form-control" />
-                <span asp-validation-for="idaula2" class="text-danger"></span>
+                <select class="form-control" asp-for="refInstalacion.idaula"
+                        asp-items="@(ViewBag.Lista!=null?new SelectList(ViewBag.Lista, "Value", "Text"):
+            new List<SelectListItem>())">
+                    <option value="">Selecciona el aula</option>
+                </select><br />
             </div>
             <div class="col-md-4 mb-3">
-                <label for="staticEmail2">Mes</label>
-                <input asp-for="dia" type="text" class="form-control" />
-                <span asp-validation-for="dia"></span>
+                <label>Clave de empleado</label><br />
+                <input type="number" asp-for="clave_empleado2" class="from-control" />
             </div>
             <div class="col-md-4 mb-3">
-                <label for="staticEmail2">Año</label>
-                <input asp-for="mes" type="text" class="form-control" />
-                <span asp-validation-for="mes"></span>
+                <label>Fecha</label><br />
+                <input type="date" asp-for="Fecha" class="from-control" />
             </div>
             <div class="col-md-4 mb-3">
-                <label for="staticEmail2">Hora</label>
-                <input asp-for="years" type="text" class="form-control" />
+                <label>Hora Inicio</label><br />
+                <input type="time" asp-for="HoraInicio" class="from-control" />
             </div>
             <div class="col-md-4 mb-3">
-                <label for="staticEmail2">Dia</label>
-                <input asp-for="hora" type="text" class="form-control" />
+                <label>Hora Fin</label><br />
+                <input type="time" asp-for="HoraFin" class="from-control" />
             </div>
             <div class="col-md-4 mb-3">
                 <button type="submit" class="btn btn-primary mb-3 btn-sm">Guardar</button> <br />
